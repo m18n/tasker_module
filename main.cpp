@@ -1,7 +1,7 @@
 #include<iostream>
-#include"manager.h"
+#include"tasker_node.h"
 int main(){
     std::cout<<"HELLO\n";
-    manager m;
+    tasker_node task;
     return 0;
 }
