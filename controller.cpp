@@ -19,3 +19,8 @@ void controller::telegram::get_id(crow::request& req, crow::response& res){
     res.body = "{\"id\":"+std::to_string(data.id)+"}";
     res.end();
 }
+void controller::telegram::exit_auth(crow::request& req, crow::response& res,int id){
+    mt.exit_auth(id);
+    res.body = "{}";
+    res.end();
+}

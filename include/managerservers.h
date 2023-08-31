@@ -8,19 +8,41 @@ namespace servers{
     };
 struct data_telegram
 {
-    int id=0;
+    int id=-1;
     status_telegram status=status_telegram::STATE;
+    void init(){
+        this->id=-1;
+        this->status=status_telegram::STATE;
+        this->busy=false;
+    }
+    bool busy=false;
 };
 
 class manager_telegram{
     public:
+    manager_telegram(){
+        telegrams.resize(25);
+        for(int i=0;i<telegrams.size();i++){
+            telegrams[i].id=i;
+        }
+    }
     data_telegram get_new_telegram(){
          data_telegram t;
-        if(telegrams.size()!=0){
-            t.id=telegrams[telegrams.size()-1].id+1;
-        }
+         t.busy=true;
+         for(int i=0;i<telegrams.size();i++){
+            if(telegrams[i].busy==false){
+                telegrams[i].init();
+                telegrams[i].id=i;
+                telegrams[i].busy=true;
+                return telegrams[i];
+            }
+         }
+        t.id=telegrams.size();
         telegrams.push_back(t);
         return t;
+    }
+    void exit_auth(int id){
+        telegrams[id].init();
     }
     void all_restart(){
         for(int i=0;i<telegrams.size();i++){
@@ -28,13 +50,8 @@ class manager_telegram{
         }
     }
     data_telegram get_data_id(int id){
-        for(int i=0;i<telegrams.size();i++){
-            if(telegrams[i].id==id){
-                return telegrams[i];
-            }
-        }
-        data_telegram t;
-        return t;
+        
+        return telegrams[id];
     }
     private:
     std::vector<data_telegram> telegrams;

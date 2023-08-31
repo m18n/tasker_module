@@ -10,6 +10,7 @@ namespace controller {
     namespace telegram{
         void get_auth_code(crow::request& req, crow::response& res,int id);
         void get_id(crow::request& req, crow::response& res);
+        void exit_auth(crow::request& req, crow::response& res,int id);
     }
     namespace manager{
 
