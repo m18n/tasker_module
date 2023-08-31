@@ -1,11 +1,11 @@
 #include "controller.h"
-logintg controller::tg;
+logintg* controller::tg;
 servers::manager_telegram controller::mt;
 void controller::telegram::get_auth_code(crow::request &req,
                                          crow::response &res,int id) {
     servers::data_telegram d=mt.get_data_id(id);
     std::cout<<"stat: "<<d.status<<"\n";
-    if(mt.get_data_id(id).status!=servers::status_telegram::RESTART&&tg.startauth() != 0){
+    if(mt.get_data_id(id).status!=servers::status_telegram::RESTART&&tg->startauth() != 0){
         res.body = "{\"code\":\"0\"}";
         res.end();
         return;

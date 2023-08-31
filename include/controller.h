@@ -5,7 +5,7 @@
 #include"managerservers.h"
 
 namespace controller {
-    extern logintg tg;
+    extern logintg* tg;
     extern servers::manager_telegram mt;
     namespace telegram{
         void get_auth_code(crow::request& req, crow::response& res,int id);
