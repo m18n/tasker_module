@@ -46,7 +46,9 @@ class manager_telegram{
     }
     void all_restart(){
         for(int i=0;i<telegrams.size();i++){
-            telegrams[i].status=status_telegram::RESTART;
+            if(telegrams[i].busy==true){
+                telegrams[i].status=status_telegram::RESTART;
+            }
         }
     }
     data_telegram get_data_id(int id){
