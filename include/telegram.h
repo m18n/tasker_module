@@ -132,9 +132,9 @@ private:
                });
   }
 };
-class managertg {
+class logintg {
 public:
-  managertg() { 
+  logintg() { 
     tg_auth = new tgauth(); 
   }
   int startauth() {
@@ -153,7 +153,7 @@ public:
     }
     return -1;
   }
-  ~managertg() { delete tg_auth; }
+  ~logintg() { delete tg_auth; }
 
 private:
   tgauth *tg_auth;

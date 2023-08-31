@@ -2,12 +2,14 @@
 #include "crow.h"
 #include"telegram.h"
 #include <thread>
+#include"managerservers.h"
 
 namespace controller {
-    extern managertg* tg;
-    
+    extern logintg tg;
+    extern servers::manager_telegram mt;
     namespace telegram{
-        void get_auth_code(crow::request& req, crow::response& res);
+        void get_auth_code(crow::request& req, crow::response& res,int id);
+        void get_id(crow::request& req, crow::response& res);
     }
     namespace manager{
 
