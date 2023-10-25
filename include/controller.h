@@ -1,22 +1,18 @@
 #pragma once
 #include "crow.h"
-#include"telegram.h"
+//#include"telegram.h"
 #include <thread>
-#include"managerservers.h"
+#include"tasker_manager.h"
 
 namespace controller {
-    extern logintg* tg;
-    extern servers::manager_telegram mt;
-    namespace telegram{
-        void get_auth_code(crow::request& req, crow::response& res,int id);
-        void get_id(crow::request& req, crow::response& res);
-        void exit_auth(crow::request& req, crow::response& res,int id);
-    }
-    namespace manager{
-
-    }
-    namespace chatgpt
-    {
-        
-    }    
+   // extern logintg* tg;
+    extern tasker_manager tm;
+    //void get_auth_code(crow::request& req, crow::response& res,int id);
+    void get_events(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_id);  
+    void send_event(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_id);
+    void start_event(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_id,std::string event_id);  
+    void end_event(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_id,std::string event_id);  
+    void get_id(crow::request& req, crow::response& res,std::string group);
+    void exit_auth(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_id);
+      
 } // namespace controller

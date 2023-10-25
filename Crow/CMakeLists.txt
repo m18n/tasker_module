@@ -54,13 +54,17 @@ target_include_directories(Crow
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 		$<INSTALL_INTERFACE:include>
 )
+IF (WIN32)
+target_include_directories(Crow INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/asio_windows/include>)
+ELSE()
+	find_package(asio REQUIRED)
+	target_link_libraries(Crow
+		INTERFACE
+			asio::asio
+	)
 
-find_package(asio REQUIRED)
+ENDIF()
 
-target_link_libraries(Crow
-	INTERFACE
-		asio::asio
-)
 
 target_compile_definitions(Crow INTERFACE "")
 
