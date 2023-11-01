@@ -14,13 +14,16 @@ std::string sha256(const std::string& input) {
     return ss.str();
 }
 void init_event(event* ev){
-    ev->hash_id="";
+    ev->hash_worker="";
+    ev->hash_event="";
     ev->busy=false;
     ev->json.clear();
+    ev->count_restart=0;
     ev->process=false;
 }
 void init_client(client* cl){
-    cl->hash_id="";
+    cl->hash_worker="";
     cl->group="";
     cl->busy=false;
+    cl->last_update=false;
 }

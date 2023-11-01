@@ -15,7 +15,7 @@ tasker_manager controller::tm;
 //     res.body = "{\"code\":\"-1\"}";
 //     res.end();
 // }
-void controller::get_events(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_id){
+void controller::get_events(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_worker){
     std::string test=req.url;
     if(server_hash!=tm.get_server_hash()){
         t_json json;
@@ -24,15 +24,12 @@ void controller::get_events(crow::request& req, crow::response& res,std::string 
         res.end();
         return;
     }
-    t_json j=tm.get_events_json(group,hash_id);
-    if(j.is_null()){
-        res.body="{}";
-    }else{
-        res.body=j.dump();
-    }
+    std::string str_res=tm.get_events_json(group,hash_worker);
+    char* ad=&str_res[0];
+    res.body=str_res;
     res.end();
 }
-void controller::send_event(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_id){
+void controller::send_event(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_worker){
     std::string test=req.url;
     if(server_hash!=tm.get_server_hash()){
         t_json json;
@@ -50,11 +47,11 @@ void controller::send_event(crow::request& req, crow::response& res,std::string 
     res.body=respon.dump();
     res.end();
 }
-void controller::start_event(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_id,std::string event_id){
-    res.body=tm.start_event(group,event_id).dump();
+void controller::start_event(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_worker,std::string event_id){
+    res.body=tm.start_event(group,event_id,hash_worker).dump();
     res.end();
 }  
-    void controller::end_event(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_id,std::string event_id){
+    void controller::end_event(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_worker,std::string event_id){
         res.body=tm.end_event(group,event_id).dump();
          res.end();
     }  
@@ -63,12 +60,12 @@ void controller::get_id(crow::request& req, crow::response& res,std::string grou
     std::cout<<"META: "<<meta.dump()<<"\n";
     client cl=tm.get_new_client(meta["$time"],meta["$ip"],group);
     t_json json;
-    json["$hash_id"]=cl.hash_id;
+    json["$hash_worker"]=cl.hash_worker;
     json["$server_hash"]=tm.get_server_hash();
     res.body = json.dump();
     res.end();
 }
-void controller::exit_auth(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_id){
+void controller::exit_auth(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_worker){
     if(server_hash!=tm.get_server_hash()){
         t_json json;
         json["$error"]="server_hash";
@@ -76,7 +73,7 @@ void controller::exit_auth(crow::request& req, crow::response& res,std::string s
         res.end();
         return;
     }
-    tm.exit_client(hash_id,group);
+    tm.exit_client(hash_worker,group);
     res.body = "{}";
     res.end();
 }
