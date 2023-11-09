@@ -139,7 +139,7 @@ public:
             }
         }
     }
-    int start_event(std::string event_id,std::string hash_worker)
+    int start_event(std::string hash_worker,std::string event_id)
     {
 
         for (int i = 0; i < events.size(); i++)
@@ -346,7 +346,7 @@ public:
         int index = find_group(group);
         if (index != -1)
         {
-            int s = clients_group[index].start_event(event_id,hash_worker);
+            int s = clients_group[index].start_event(hash_worker,event_id);
             res["$status"] = s;
         }
         return res;
