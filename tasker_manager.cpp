@@ -1,4 +1,29 @@
 #include"tasker_manager.h"
+// };
+bool isPortOccupied(int port) {
+    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd == -1) {
+        std::cerr << "Error creating socket" << std::endl;
+        return false;
+    }
+
+    sockaddr_in addr;
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = INADDR_ANY;
+    addr.sin_port = htons(port);
+
+    int result = bind(sockfd, (struct sockaddr*)&addr, sizeof(addr));
+
+    close(sockfd);
+
+    if (result == 0) {
+        // Порт вільний
+        return false;
+    } else {
+        // Порт зайнятий
+        return true;
+    }
+}
 std::string sha256(const std::string& input) {
     unsigned char hash[SHA256_DIGEST_LENGTH];
     SHA256_CTX sha256;

@@ -7,6 +7,9 @@
 #include <iomanip>
 #include <openssl/sha.h>
 #include <ctime>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
 using t_json = nlohmann::json;
 #define NAME_SERVER "tasker"
 // namespace servers{
@@ -25,6 +28,8 @@ using t_json = nlohmann::json;
 //     }
 //     bool busy=false;
 // };
+bool isPortOccupied(int port);
+
 std::string sha256(const std::string &input);
 struct client
 {
