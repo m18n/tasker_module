@@ -2,7 +2,7 @@
 #include "url.h"
 
 #include <iostream>
-
+#include"connector_manager.h"
 class tasker_node {
 public:
   tasker_node() {
@@ -21,6 +21,6 @@ public:
 private:
   //logintg tg;
   crow::SimpleApp tasker_node_api;
-  
+  connector::connector_manager conn;
  
 };
