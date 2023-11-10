@@ -1,4 +1,5 @@
 #pragma once
+#define NAME_SERVER "tasker"
 #include <iostream>
 #include <vector>
 #include <nlohmann/json.hpp>
@@ -11,7 +12,7 @@
 #include <netinet/in.h>
 #include <unistd.h>
 using t_json = nlohmann::json;
-#define NAME_SERVER "tasker"
+
 // namespace servers{
 //     enum status_telegram{
 //         RESTART,
