@@ -24,9 +24,8 @@ void controller::get_events(crow::request& req, crow::response& res,std::string 
         res.end();
         return;
     }
-    std::string str_res=tm.get_events_json(group,hash_worker);
-    char* ad=&str_res[0];
-    res.body=str_res;
+    
+    res.body=tm.get_events_json(group,hash_worker);
     res.end();
 }
 void controller::send_event(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_worker){

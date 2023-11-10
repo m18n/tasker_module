@@ -256,6 +256,8 @@ public:
             }
         }
         char* ad=&respon[0];
+        if(respon=="")
+            return "{}";
         return respon;
     }
 
