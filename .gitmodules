@@ -1,3 +1,6 @@
 [submodule "connector_manager"]
 	path = connector_manager
 	url = https://github.com/m18n/connector_manager.git
+[submodule "server_logic"]
+	path = server_logic
+	url = https://github.com/m18n/server_logic.git
