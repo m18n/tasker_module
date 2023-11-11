@@ -1,6 +1,6 @@
 #include "controller.h"
 //logintg* controller::tg;
-tasker_manager controller::tm;
+server::tasker_manager controller::tm;
 // void controller::telegram::get_auth_code(crow::request &req,
 //                                          crow::response &res,int id) {
 //     servers::data_telegram d=mt.get_data_id(id);
@@ -18,7 +18,7 @@ tasker_manager controller::tm;
 void controller::get_events(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_worker){
     std::string test=req.url;
     if(server_hash!=tm.get_server_hash()){
-        t_json json;
+        server::t_json json;
         json["$error"]="server_hash";
         res.body=json.dump();
         res.end();
@@ -31,15 +31,15 @@ void controller::get_events(crow::request& req, crow::response& res,std::string 
 void controller::send_event(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_worker){
     std::string test=req.url;
     if(server_hash!=tm.get_server_hash()){
-        t_json json;
+        server::t_json json;
         json["$error"]="server_hash";
         res.body=json.dump();
         res.end();
         return;
     }
-    t_json respon;
-    event ev;
-    ev.json=t_json::parse(req.body);
+    server::t_json respon;
+    server::event ev;
+    ev.json=server::t_json::parse(req.body);
     ev.json["$server_hash"]=server_hash;
     respon["$respon_id"]=tm.add_new_event(ev);
     
@@ -55,10 +55,10 @@ void controller::start_event(crow::request& req, crow::response& res,std::string
          res.end();
     }  
 void controller::get_id(crow::request& req, crow::response& res,std::string group){
-    t_json meta=t_json::parse(req.body);
+    server::t_json meta=server::t_json::parse(req.body);
     std::cout<<"META: "<<meta.dump()<<"\n";
-    client cl=tm.get_new_client(meta["$time"],meta["$ip"],group);
-    t_json json;
+    server::client cl=tm.get_new_client(meta["$time"],meta["$ip"],group);
+    server::t_json json;
     json["$hash_worker"]=cl.hash_worker;
     json["$server_hash"]=tm.get_server_hash();
     res.body = json.dump();
@@ -66,7 +66,7 @@ void controller::get_id(crow::request& req, crow::response& res,std::string grou
 }
 void controller::exit_auth(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_worker){
     if(server_hash!=tm.get_server_hash()){
-        t_json json;
+        server::t_json json;
         json["$error"]="server_hash";
         res.body=json.dump();
         res.end();

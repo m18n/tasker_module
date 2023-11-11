@@ -9,7 +9,7 @@ public:
     //controller::tg=&tg;
     url::init_api_url(tasker_node_api);
     int n=0;
-    while(isPortOccupied(3000+n)==true){
+    while(server::isPortOccupied(3000+n)==true){
       n++;
     }
     

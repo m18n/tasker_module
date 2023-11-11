@@ -6,7 +6,7 @@
 
 namespace controller {
    // extern logintg* tg;
-    extern tasker_manager tm;
+    extern server::tasker_manager tm;
     //void get_auth_code(crow::request& req, crow::response& res,int id);
     void get_events(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_worker);  
     void send_event(crow::request& req, crow::response& res,std::string server_hash,std::string group,std::string hash_worker);
