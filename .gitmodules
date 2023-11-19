@@ -1,3 +1,6 @@
 [submodule "server_logic"]
 	path = server_logic
 	url = https://github.com/m18n/server_logic.git
+[submodule "tasker_documentation"]
+	path = tasker_documentation
+	url = https://github.com/m18n/tasker_documentation.git
